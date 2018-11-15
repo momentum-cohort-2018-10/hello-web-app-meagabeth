@@ -3,13 +3,13 @@
 
 
 {% block title %}
-    entry.name - {{ block.super}}
+    Homepage - {{ block.super}}
 {% endblock title %}
 
 {% block content %}
   {% for entry in entries %}
-  <h2><a href="{% url 'entry_detail' slug=entry.slug %}">
-    {{ entry.name }}
+    <h2><a href="{% url 'entry_detail' slug=entry.slug %}">
+      {{ entry.name }}
     </a></h2>
     <p>{{ entry.description }}</p>
   {% endfor %}

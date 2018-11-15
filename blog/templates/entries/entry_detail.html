@@ -2,15 +2,15 @@
 
 
 {% block title %}
-    entry.name - {{ block.super}}
+    {{ entry.name }} - {{ block.super }}
 {% endblock title %}
 
 {% block content %}
-  {% for entry in entries %}
+  {% comment %} {% for entry in entries %} {% endcomment %}
   <h2>{{ entry.name }}</h2>
   <p>{{ entry.description }}</p>
   <a href="{% url 'edit_entry' slug=entry.slug %}">
       Edit me!
   </a>
-  {% endfor %}
+  {% comment %} {% endfor %} {% endcomment %}
 {% endblock content %}

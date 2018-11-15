@@ -27,5 +27,5 @@ TemplateView.as_view(template_name='contact.html'),
     name='contact'),
 path('entries/<slug>/', views.entry_detail, name='entry_detail'),
 path('entries/<slug>/edit/', views.edit_entry, name='edit_entry'),
-    path('admin/', admin.site.urls),
+path('admin/', admin.site.urls),
 ]

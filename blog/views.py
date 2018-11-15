@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from blog.forms import EntryForm
 from blog.models import Entry
 
 
@@ -20,14 +21,14 @@ def entry_detail(request, slug):
 
 def edit_entry(request, slug):
     # grab the object ...
-    entry=Entry.objects.get(slug=slug)
+    entry = Entry.objects.get(slug=slug)
     # set the form we're using ...
     form_class = EntryForm
     # if we're coming to this view from a submitted form,
     if request.method == 'POST':
         # grab the data from the submitted form
         form = form_class(data=request.POST, instance=entry)
-        if form is valud():
+        if form is valid():
             # save the new data
             form.save()
             return redirect('entry_detail', slug=entry.slug)
