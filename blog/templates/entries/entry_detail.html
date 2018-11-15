@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 
-
 {% block title %}
     entry.name - {{ block.super}}
 {% endblock title %}
 
 {% block content %}
   {% for entry in entries %}
-  <h2><a href="{% url 'entry_detail' slug=entry.slug %}">
-    {{ entry.name }}
-    </a></h2>
-    <p>{{ entry.description }}</p>
+  <h2>{{ entry.name }}</h2>
+  <p>{{ entry.description }}</p>
+  <a href="{% url 'edit_entry' slug=entry.slug %}">
+      Edit me!
+  </a>
   {% endfor %}
 {% endblock content %}
