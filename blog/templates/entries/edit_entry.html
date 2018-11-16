@@ -5,10 +5,10 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>Edit "{{ entry.name }}"</h1>
+    <h3>Edit "{{ entry.name }}"</h3>
     <form role="form" action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Submit</button>
+        <button class ='button_edit_me' type="submit">Submit</button>
     </form>
 {% endblock content%}

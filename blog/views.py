@@ -28,7 +28,7 @@ def edit_entry(request, slug):
     if request.method == 'POST':
         # grab the data from the submitted form
         form = form_class(data=request.POST, instance=entry)
-        if form is valid():
+        if form.is_valid():
             # save the new data
             form.save()
             return redirect('entry_detail', slug=entry.slug)

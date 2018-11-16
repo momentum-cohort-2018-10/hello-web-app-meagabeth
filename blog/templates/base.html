@@ -12,12 +12,19 @@
 </head>
 <body>
     <header>
-        <h1>Hello Web App</h1>
+        <h1 class='box_style'>The Year of Pie</h1>
+            <h3>Join me on this 52 week journey,<br> one that is guaranteed to be the tastiest year yet!</h3>
         <nav>
             <ul>
                 <li><a href="{% url 'home' %} ">Home</a></li>
-                <li><a href="{% url 'about' %}">About</a></li> 
+                <li><a href="{% url 'about' %}">About</a></li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'auth_login' %}">Login</a></li>
+                <li><a href="{% url 'registration_register' %}">Register</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
