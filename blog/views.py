@@ -1,6 +1,9 @@
+from django.template.defaultfilters import slugify
 from django.shortcuts import render, redirect
 from blog.forms import EntryForm
 from blog.models import Entry
+from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 
 def index(request):
@@ -19,9 +22,12 @@ def entry_detail(request, slug):
         'entry': entry,
     })
 
+@login_required
 def edit_entry(request, slug):
     # grab the object ...
     entry = Entry.objects.get(slug=slug)
+    if entry.user != request.user:
+        raise Http404
     # set the form we're using ...
     form_class = EntryForm
     # if we're coming to this view from a submitted form,
@@ -33,9 +39,25 @@ def edit_entry(request, slug):
             form.save()
             return redirect('entry_detail', slug=entry.slug)
     # otherwise just create the form
-    else:
-        form = form_class(instance=entry)
+        else:
+            form = form_class(instance=entry)
     # and render the template
-    return render(request, 'entries/edit_entry.html', {
-        'entry': entry, 'form': form,
+        return render(request, 'entries/edit_entry.html', {
+    'entry': entry, 'form': form,
+    })
+
+def create_entry(request):
+    form_class = EntryForm
+    if request.method == 'POST':
+        form = form_class(request.POST)
+        if form.is_valid():
+            entry = form.save(commit=False)
+            entry.user = request.user
+            entry.slug = slugify(entry.name)
+            entry.save()
+            return redirect('entry_detail', slug=entry.slug)
+    else:
+        form = form_class()
+
+    return render(request, 'entries/create_entry.html', {'form' : form,
     })

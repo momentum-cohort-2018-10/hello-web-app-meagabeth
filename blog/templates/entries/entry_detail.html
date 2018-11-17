@@ -7,10 +7,12 @@
 
 {% block content %}
   {% comment %} {% for entry in entries %} {% endcomment %}
-  <h2>{{ entry.name }}</h2>
-  <p>{{ entry.description }}</p>
-  <a href="{% url 'edit_entry' slug=entry.slug %}">
-      Edit me!
-  </a>
+    <h2>{{ entry.name }}</h2>
+    <p>{{ entry.description }}</p>
+    {% if user == entry.user %}
+        <p>
+        <a href="{% url 'edit_entry' slug=entry.slug %}">
+        Edit me!</a></p>
+    {% endif %}
   {% comment %} {% endfor %} {% endcomment %}
 {% endblock content %}
