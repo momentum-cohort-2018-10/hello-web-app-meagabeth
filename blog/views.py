@@ -26,6 +26,7 @@ def entry_detail(request, slug):
 def edit_entry(request, slug):
     # grab the object ...
     entry = Entry.objects.get(slug=slug)
+    
     if entry.user != request.user:
         raise Http404
     # set the form we're using ...

@@ -5,4 +5,3 @@ class EntryForm(ModelForm):
     class Meta:
         model = Entry
         fields = ('name', 'description',)
-        
