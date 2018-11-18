@@ -22,6 +22,16 @@ def entry_detail(request, slug):
         'entry': entry,
     })
 
+def browse_by_name(request, initial=None):
+    if initial:
+        entries = Entry.objects.filter(name__istartswith=initial).order_by('name')
+    else:
+        entries = Entry.objects.all().order_by('name')
+    return render(request, 'search/search.html', {
+        'entries': entries,
+        'initial': initial,
+    })
+
 @login_required
 def edit_entry(request, slug):
     # grab the object ...
@@ -40,10 +50,10 @@ def edit_entry(request, slug):
             form.save()
             return redirect('entry_detail', slug=entry.slug)
     # otherwise just create the form
-        else:
-            form = form_class(instance=entry)
+    else:
+        form = form_class(instance=entry)
     # and render the template
-        return render(request, 'entries/edit_entry.html', {
+    return render(request, 'entries/edit_entry.html', {
     'entry': entry, 'form': form,
     })
 
